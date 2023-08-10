@@ -11,7 +11,11 @@ const save=async ()=>{
         email:email.value,
         password:password.value
     }
-    const result=await axios.post(`${url}/signup`,obj);
-    console.log(result);
-    alert(result)
+    try {
+        const result=await axios.post(`${url}/signup`,obj);
+        console.log(result);
+        alert(result?.data?.message)
+    } catch (error) {
+        console.log(error);
+    }
 }
