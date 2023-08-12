@@ -4,6 +4,7 @@ require('dotenv').config();
 
 const signupRoutes = require('./routes/signupRoutes');
 const loginRoutes = require('./routes/loginRoutes');
+const sendMessageRoutes = require('./routes/sendMessageRoutes');
 const sequelize = require('./utils/database');
 const cors = require('cors');
 const app=express();
@@ -13,6 +14,7 @@ app.use(express.json());
 
 app.use('/signup',signupRoutes)
 app.use('/login',loginRoutes)
+app.use('/sendMessage',sendMessageRoutes);
 
 sequelize.sync({force:false})
 .then(res=>console.log(`database connected`))
