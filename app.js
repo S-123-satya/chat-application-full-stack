@@ -7,6 +7,8 @@ const loginRoutes = require('./routes/loginRoutes');
 const sendMessageRoutes = require('./routes/sendMessageRoutes');
 const sequelize = require('./utils/database');
 const cors = require('cors');
+const Message = require('./models/messageModel');
+const User = require('./models/userModel');
 const app=express();
 app.use(cors());
 app.use(express.static(path.join(__dirname,'public')));
@@ -16,7 +18,13 @@ app.use('/signup',signupRoutes)
 app.use('/login',loginRoutes)
 app.use('/sendMessage',sendMessageRoutes);
 
-sequelize.sync({force:false})
+// db.teamMember.belongsTo(db.employee, {as: 'SupervisorId'});
+// db.teamMember.belongsTo(db.employee, {as: 'RegularEmployeeId'});
+
+Message.belongsTo(User,{as:'sender'})
+Message.belongsTo(User,{as:'receiver'})
+
+sequelize.sync({force:true})
 .then(res=>console.log(`database connected`))
 .catch(err=>console.log(`error while database connection`));
 app.listen(3000,()=>console.log(`listing on port 3000`));
