@@ -2,6 +2,9 @@ const url='http://localhost:3000'
 const login=async ()=>{
     // e.preventDefault();
     const email = document.getElementById('email');
+    // let temp=[]
+    // temp=localStorage.getItem('chat');
+    // temp.push()
     const password = document.getElementById('password');
     const obj={
         email:email.value,

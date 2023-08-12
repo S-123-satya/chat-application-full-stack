@@ -5,6 +5,10 @@ const save=async ()=>{
     const phoneNumber = document.getElementById('phoneNumber');
     const email = document.getElementById('email');
     const password = document.getElementById('password');
+    let temp=[]
+    temp=localStorage.getItem('chat');
+    temp.push(`${name}`);
+
     const obj={
         name:name.value,
         phone:phoneNumber.value,
