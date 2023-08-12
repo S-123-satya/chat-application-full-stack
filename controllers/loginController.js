@@ -1,5 +1,5 @@
 const User = require("../models/userModel");
-const checkPassword = require("../utils/checkPassword");
+const {checkPassword} = require("../utils/passwordUtils");
 
 module.exports.postLoginController = async (req, res) => {
     const result = await User.findOne({

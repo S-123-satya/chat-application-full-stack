@@ -21,8 +21,9 @@ app.use('/sendMessage',sendMessageRoutes);
 // db.teamMember.belongsTo(db.employee, {as: 'SupervisorId'});
 // db.teamMember.belongsTo(db.employee, {as: 'RegularEmployeeId'});
 
+// User.hasMany(Message);
 Message.belongsTo(User,{as:'sender'})
-Message.belongsTo(User,{as:'receiver'})
+// Message.belongsTo(User,{as:'receiver'})
 
 sequelize.sync({force:true})
 .then(res=>console.log(`database connected`))

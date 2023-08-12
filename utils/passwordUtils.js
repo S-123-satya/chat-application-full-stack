@@ -1,7 +1,7 @@
 const bcrypt = require('bcrypt');
 
 // var encryptPasswordValue;
-const encryptPassword = async (myPlaintextPassword) => {
+module.exports.encryptPassword = async (myPlaintextPassword) => {
     try {
         const hash = await bcrypt.hash(myPlaintextPassword, Number(process.env.SALT_ROUND))
         return hash;
@@ -9,4 +9,8 @@ const encryptPassword = async (myPlaintextPassword) => {
         throw new Error(error);
     }
 };
-module.exports = encryptPassword
+
+module.exports.checkPassword=async(loginPassword,userPassword)=>{
+    const match = await bcrypt.compare(loginPassword, userPassword);
+    return match?true:false;
+}

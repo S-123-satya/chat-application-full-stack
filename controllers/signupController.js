@@ -1,6 +1,6 @@
 const User = require("../models/userModel");
-const encryptPassword = require("../utils/encryptPassword");
-const checkUser = require("../utils/checkExistingUser");
+const {encryptPassword} = require("../utils/passwordUtils");
+const {checkUser} = require("../utils/userUtils");
 
 module.exports.postSignupController = async (req, res) => {
     try {
