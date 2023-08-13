@@ -4,16 +4,34 @@ const config={
         Authorization: localStorage.getItem('token'),
     }
 }
+setInterval(async function () {
+    const data=await axios.get(`${url}/message/chats`,config);
+    const userList = document.getElementById('userList');
+    userList.innerHTML=""
+    console.log(data?.data?.data);
+    (data?.data?.data).map((ele)=>{
+        displayMessage(ele?.User?.name,ele?.message,ele?.id);
+    })
+}, 1000);
+const displayMessage=(name,message,id)=>{
+    const userList = document.getElementById('userList');
+    let element=document.createElement('tr')
+    element.id=id;
+    element.innerHTML=`<td>${name}: ${message}</td>`
+    userList.appendChild(element);
+    
+}
 const sendMessage = document.getElementById('sendMessage');
 sendMessage.addEventListener('click',async(e)=>{
     e.preventDefault();
     const inputChat = document.getElementById('inputChat');
     const message={
-        message:inputChat.value,
+        message:inputChat?.value,
     }
-    const data=await axios.post(`${url}/sendMessage`,message,config);
-    console.log(data);
-    
+    const data=await axios.post(`${url}/message`,message,config);
+    displayMessage("You",data?.data?.data?.message,data?.data?.data?.id);
+    inputChat.value="";
+    inputChat.focus()
 })
 
 // const themeselector=document.getElementById('themeselector');

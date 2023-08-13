@@ -7,16 +7,37 @@ module.exports.postSendMessageController=async(req,res)=>{
     const result=await User.findOne({where:{
         id:tokenObj.id
     }})
-    console.log(`10`);
-    console.log(result);
     let data;
     if(result){
-
         data=await Message.create({message,senderId:tokenObj.id})
-        res.json({message:'message receive'})
+        res.json({message:'message receive',data})
     }
     else
         res.json({message:"User does not exist",status:401})
-    console.log(`13`);
-    // console.log(data);
 }
+
+module.exports.getMessageController=async(req,res)=>{
+    const data = await Message.findAll({
+        include: [
+            {
+                model: User,
+                attributes: ['name']
+            }
+        ],
+        attributes: ['id','message', ],
+        order: [['createdAt', 'ASC']]
+    });
+    res.json({message:"all chats send",data});
+}
+
+// const user = await User.findAll({
+//     include: [
+//         {
+//             model: Expense,
+//             attributes: []
+//         }
+//     ],
+//     attributes: ['name', [sequelize.fn('sum', sequelize.col(`expenses.expenseInput`)), 'totalcost']],
+//     group: ['id'],
+//     order: [['totalcost', 'DESC']]
+// });

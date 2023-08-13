@@ -4,7 +4,7 @@ require('dotenv').config();
 
 const signupRoutes = require('./routes/signupRoutes');
 const loginRoutes = require('./routes/loginRoutes');
-const sendMessageRoutes = require('./routes/sendMessageRoutes');
+const messageRoutes = require('./routes/messageRoutes');
 const sequelize = require('./utils/database');
 const cors = require('cors');
 const Message = require('./models/messageModel');
@@ -16,7 +16,7 @@ app.use(express.json());
 
 app.use('/signup',signupRoutes)
 app.use('/login',loginRoutes)
-app.use('/sendMessage',sendMessageRoutes);
+app.use('/message',messageRoutes);
 
 User.hasMany(Message,{foreignKey:'senderId'});
 Message.belongsTo(User,{foreignKey:'senderId'})
