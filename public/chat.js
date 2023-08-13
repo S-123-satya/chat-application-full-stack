@@ -1,7 +1,7 @@
 const url='http://localhost:3000'
 const config={
-    Headers:{
-        Authentication:localStorage.getItem('token')
+    headers: {
+        Authorization: localStorage.getItem('token'),
     }
 }
 const sendMessage = document.getElementById('sendMessage');

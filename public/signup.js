@@ -5,9 +5,9 @@ const save=async ()=>{
     const phoneNumber = document.getElementById('phoneNumber');
     const email = document.getElementById('email');
     const password = document.getElementById('password');
-    let temp=[]
-    temp=localStorage.getItem('chat');
-    temp.push(`${name}`);
+    let temp=[];
+    // temp=localStorage.getItem('chat');
+    // temp.push(`${name}`);
 
     const obj={
         name:name.value,
@@ -19,6 +19,7 @@ const save=async ()=>{
         const result=await axios.post(`${url}/signup`,obj);
         console.log(result);
         alert(result?.data?.message)
+        location=`${url}/login.html`
     } catch (error) {
         console.log(error);
     }

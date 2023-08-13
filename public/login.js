@@ -14,6 +14,8 @@ const login=async ()=>{
         const result=await axios.post(`${url}/login`,obj);
         console.log(result);
         alert(result?.data?.message)
+        localStorage.setItem('token',result?.data?.token)
+        location=`${url}/chat.html`
     } catch (error) {
         console.log(error);
     }
