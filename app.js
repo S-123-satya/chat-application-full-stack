@@ -18,12 +18,8 @@ app.use('/signup',signupRoutes)
 app.use('/login',loginRoutes)
 app.use('/sendMessage',sendMessageRoutes);
 
-// db.teamMember.belongsTo(db.employee, {as: 'SupervisorId'});
-// db.teamMember.belongsTo(db.employee, {as: 'RegularEmployeeId'});
-
-// User.hasMany(Message);
+User.hasMany(Message);
 Message.belongsTo(User,{as:'sender'})
-// Message.belongsTo(User,{as:'receiver'})
 
 sequelize.sync({force:true})
 .then(res=>console.log(`database connected`))
