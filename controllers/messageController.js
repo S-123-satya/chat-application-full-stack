@@ -1,3 +1,4 @@
+const { Op } = require("sequelize");
 const Message = require("../models/messageModel");
 const User = require("../models/userModel");
 
@@ -17,6 +18,9 @@ module.exports.postSendMessageController=async(req,res)=>{
 }
 
 module.exports.getMessageController=async(req,res)=>{
+    let id=req.params.id;
+    if(id===undefined)
+        id=0;
     const data = await Message.findAll({
         include: [
             {
@@ -25,7 +29,12 @@ module.exports.getMessageController=async(req,res)=>{
             }
         ],
         attributes: ['id','message', ],
-        order: [['createdAt', 'ASC']]
+        order: [['createdAt', 'ASC']],
+        where:{
+            id: {
+                [Op.gt]: id,
+              }
+        }
     });
     res.json({message:"all chats send",data});
 }

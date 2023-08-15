@@ -3,5 +3,5 @@ const { postSendMessageController,getMessageController} = require('../controller
 const { verifyToken } = require('../utils/tokensUtils');
 const router=express.Router()
 router.post('/',verifyToken,postSendMessageController); //task incompleted= verifyToken
-router.get('/chats',verifyToken,getMessageController); //task incompleted= verifyToken
+router.get('/chats/:id',verifyToken,getMessageController); //task incompleted= verifyToken
 module.exports=router;
