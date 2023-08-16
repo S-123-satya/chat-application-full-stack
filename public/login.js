@@ -15,7 +15,7 @@ const login=async ()=>{
         console.log(result);
         alert(result?.data?.message)
         localStorage.setItem('token',result?.data?.token)
-        location=`${url}/chat.html`
+        location=`${url}/index.html`
     } catch (error) {
         console.log(error);
     }
