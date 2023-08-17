@@ -4,20 +4,14 @@ const config = {
         Authorization: localStorage.getItem('token'),
     }
 }
-// setInterval(async function () {
-//     const data = await axios.get(`${url}/message/chats`, config);
-//     const messageList = document.getElementById('messageList');
-//     messageList.innerHTML = ""
-//     console.log(data?.data?.data);
-//     (data?.data?.data).map((ele) => {
-//         displayMessage(ele?.User?.name, ele?.message, ele?.id);
-//     })
-// }, 1000);
 const displayMessage = (name, message, id) => {
     const messageList = document.getElementById('messageList');
     let element = document.createElement('div')
     element.id = id;
-    element.className = "chat__main-msg chat__main-msg-user"
+    if (name === "You" || name===localStorage.getItem('userName'))
+        element.className = "chat__main-msg chat__main-msg-me"
+    else
+        element.className = "chat__main-msg chat__main-msg-user"
     element.innerHTML = `${name}: ${message}`
     messageList.appendChild(element);
 
@@ -31,9 +25,17 @@ sendMessage.addEventListener('click', async (e) => {
         message: inputChat?.value,
     }
     const messageList = document.getElementById('messageList');
-    const id = messageList.lastElementChild.id;
+    let id = 1;
+    if (messageList.lastElementChild !== null)
+        id = messageList.lastElementChild.id;
     await getDataById(id);
     const data = await axios.post(`${url}/message`, message, config);
+    let messages = [];
+    if (isMessage()) {
+        messages = localStorage.getItem('messages');
+        messages = JSON.parse(messages);
+    }
+    messages.push({ id: data?.data?.data?.id, name: "You", message: data?.data?.data?.message })
     displayMessage("You", data?.data?.data?.message, data?.data?.data?.id);
     inputChat.value = "";
     inputChat.focus()
@@ -60,15 +62,15 @@ async function refresh() {
     console.log(id);
     await getDataById(id);
 }
-function isMessage(){
+function isMessage() {
     let messages = localStorage.getItem('messages');
-    if (messages === '' || messages === null) 
+    if (messages === '' || messages === null)
         return false;
     return true;
 }
 async function getDataById(id) {
-    let messages=[];
-    if(isMessage()){
+    let messages = [];
+    if (isMessage()) {
         messages = localStorage.getItem('messages');
         messages = JSON.parse(messages);
     }

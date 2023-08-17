@@ -14,7 +14,7 @@ module.exports.postLoginController = async (req, res) => {
         if (varify){
             const token=generateToken(result.id,result.email)
             console.log(token);
-            res.json({message:"User login successfully",status:201,token});
+            res.json({message:"User login successfully",status:201,token,userName:result.name});
         }
         else
             res.json({ message: "Incorrect password", status: 401 })

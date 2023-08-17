@@ -8,6 +8,11 @@ const UserGroup=sequelize.define('usergroup',{
         primaryKey:true,
         autoIncrement:true,
     },
+    groupname:{
+        type:DataTypes.BIGINT,
+        allowNull:false,
+
+    }
 })
 
 module.exports=UserGroup;

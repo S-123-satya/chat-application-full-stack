@@ -15,6 +15,7 @@ const login=async ()=>{
         console.log(result);
         alert(result?.data?.message)
         localStorage.setItem('token',result?.data?.token)
+        localStorage.setItem('userName',result?.data?.userName)
         location=`${url}/index.html`
     } catch (error) {
         console.log(error);

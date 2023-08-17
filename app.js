@@ -4,6 +4,7 @@ require('dotenv').config();
 
 const signupRoutes = require('./routes/signupRoutes');
 const loginRoutes = require('./routes/loginRoutes');
+const userRoutes = require('./routes/userRoutes');
 const messageRoutes = require('./routes/messageRoutes');
 const sequelize = require('./utils/database');
 const cors = require('cors');
@@ -18,6 +19,7 @@ app.use(express.json());
 
 app.use('/signup', signupRoutes)
 app.use('/login', loginRoutes)
+app.use('/user', userRoutes)
 app.use('/message', messageRoutes);
 
 User.belongsToMany(Group, { through: UserGroup });
@@ -27,7 +29,7 @@ Message.belongsTo(Group);
 User.hasMany(Message, { foreignKey: 'senderId' });
 Message.belongsTo(User, { foreignKey: 'senderId' })
 
-sequelize.sync({ force: false })
+sequelize.sync({ alter: true })
     .then(res => console.log(`database connected`))
     .catch(err => console.log(`error while database connection`));
 app.listen(3000, () => console.log(`listing on port 3000`));
