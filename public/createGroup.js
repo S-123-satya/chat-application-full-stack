@@ -1,4 +1,4 @@
-const groupList=[]
+const groupList = []
 const url = 'http://localhost:3000'
 
 const config = {
@@ -30,6 +30,10 @@ createGroupBtn.addEventListener('click',async(e)=>{
         userList:groupList,
     }
     const data=await axios.post(`${url}/group`,obj,config);
+    console.log(data);
+    const stringData=JSON.stringify(data);
+    localStorage.setItem('groups',stringData);
+    location=`${url}/index.html`
 })
 
 function displayUserList({ id, name }) {

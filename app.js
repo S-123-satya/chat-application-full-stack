@@ -6,6 +6,7 @@ const signupRoutes = require('./routes/signupRoutes');
 const loginRoutes = require('./routes/loginRoutes');
 const userRoutes = require('./routes/userRoutes');
 const messageRoutes = require('./routes/messageRoutes');
+const groupRoutes = require('./routes/groupRoutes');
 const sequelize = require('./utils/database');
 const cors = require('cors');
 const Message = require('./models/messageModel');
@@ -21,11 +22,14 @@ app.use('/signup', signupRoutes)
 app.use('/login', loginRoutes)
 app.use('/user', userRoutes)
 app.use('/message', messageRoutes);
+app.use('/group', groupRoutes);
 
 User.belongsToMany(Group, { through: UserGroup });
 Group.belongsToMany(User, { through: UserGroup });
+
 Group.hasMany(Message);
 Message.belongsTo(Group);
+
 User.hasMany(Message, { foreignKey: 'senderId' });
 Message.belongsTo(User, { foreignKey: 'senderId' })
 
