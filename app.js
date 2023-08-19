@@ -33,7 +33,7 @@ Message.belongsTo(Group);
 User.hasMany(Message, { foreignKey: 'senderId' });
 Message.belongsTo(User, { foreignKey: 'senderId' })
 
-sequelize.sync({ alter: true })
+sequelize.sync({ force: false })
     .then(res => console.log(`database connected`))
     .catch(err => console.log(`error while database connection`));
 app.listen(3000, () => console.log(`listing on port 3000`));

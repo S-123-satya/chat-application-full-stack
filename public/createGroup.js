@@ -31,7 +31,7 @@ createGroupBtn.addEventListener('click',async(e)=>{
     }
     const data=await axios.post(`${url}/group`,obj,config);
     console.log(data);
-    const stringData=JSON.stringify(data);
+    const stringData=JSON.stringify(data?.data?.data);
     localStorage.setItem('groups',stringData);
     location=`${url}/index.html`
 })
