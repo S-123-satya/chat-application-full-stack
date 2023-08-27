@@ -13,6 +13,7 @@ const Message = require('./models/messageModel');
 const User = require('./models/userModel');
 const Group = require('./models/groupModel');
 const UserGroup = require('./models/userGroup');
+const Admin = require('./models/adminModel');
 const app = express();
 app.use(cors());
 app.use(express.static(path.join(__dirname, 'public')));
@@ -26,6 +27,9 @@ app.use('/group', groupRoutes);
 
 User.belongsToMany(Group, { through: UserGroup });
 Group.belongsToMany(User, { through: UserGroup });
+
+Admin.belongsToMany(Group,{through:'GroupAdmin',timestamps:false})
+Group.belongsToMany(Admin,{through:'GroupAdmin',timestamps:false})
 
 Group.hasMany(Message);
 Message.belongsTo(Group);

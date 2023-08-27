@@ -30,7 +30,7 @@ module.exports.getMessageController=async(req,res)=>{
             },
             {
                 model: Group,
-                attributes: ['id'],
+                attributes: ['id','groupname'],
                 where:{
                     id:groupId
                 }
@@ -40,7 +40,7 @@ module.exports.getMessageController=async(req,res)=>{
         order: [['createdAt', 'ASC']],
         where:{
             id: {
-                [Op.gt]: id,
+                [Op.gte]: id,
               },
         }
     });

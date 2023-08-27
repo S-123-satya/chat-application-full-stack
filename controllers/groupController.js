@@ -25,14 +25,11 @@ module.exports.getGroupController = async (req, res) => {
     const groupList = await User.findAll({
         include: {
             model: Group,
-            // include:{
-                //     model:UserGroup,
-                // }
-                attributes: ['id', 'groupname', 'createdBy']
-            },
-            where:{
-                id:tokenObj.id,
-            },
+            attributes: ['id', 'groupname', 'createdBy']
+        },
+        where: {
+            id: tokenObj.id,
+        },
         attributes: ['id', 'name', 'email', 'phone'],
     })
     res.json({ message: "get group controller", groupList });

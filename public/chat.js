@@ -46,7 +46,7 @@ function isMessage() {
         return false;
     return true;
 }
-async function getMessageById(groupId, id) {
+async function getMessageById(groupId, id,divN) {
     // let messages = [];
     // if (isMessage()) {
     //     messages = localStorage.getItem('messages');
@@ -57,9 +57,14 @@ async function getMessageById(groupId, id) {
     // if (groupList !== null) {
     // groupId = JSON.parse(groupList).id;
     const messageList = document.getElementById('messageList');
+    const groupName=document.querySelector('.chat__header-name');
+    console.log(groupName);
+    groupName.id=`groupName${groupId}`;
+    groupName.addEventListener('click',getAdmin);
     messageList.innerHTML = "";
     const data = await axios.get(`${url}/message/chats/?groupId=${groupId}&id=${id}`, config)//we need to pass as a query not as params
     console.log(data);
+    groupName.innerHTML=`${data?.data?.data[0]?.group?.groupname}`;
     (data?.data?.data).map((ele) => {
         console.log(ele);
         const obj = {
@@ -68,6 +73,7 @@ async function getMessageById(groupId, id) {
             message: ele?.message,
         }
         console.log(obj);
+        
         // messages.push(obj)
         displayMessage(ele?.User?.name, ele?.message, ele?.id);
     })
@@ -76,9 +82,11 @@ async function getMessageById(groupId, id) {
     //     localStorage.setItem("messages", message)
     // }
 }
-async function getGroupList() {
+async function getGroupList(e) {
     let list = localStorage.getItem('groupList');
-    if (list === null || list === undefined) {
+    console.log(list);
+    if (list === null || list === undefined || list==='[]') {
+        console.log(e);
         const data = await axios.get(`${url}/group`, config);
         console.log(data);
         const stringObj = JSON.stringify(data?.data?.groupList[0]?.groups);
@@ -100,7 +108,7 @@ async function getGroupList() {
                 console.log(groupId);
                 currentGroupId=Number(groupId[0]);
                 console.log(currentGroupId);
-                getMessageById(groupId[0],1);
+                getMessageById(groupId[0],id,div[i].innerHTML);
             });
         }
     }
@@ -153,4 +161,9 @@ sendMessage.addEventListener('click', async (e) => {
     inputChat.value = "";
     inputChat.focus()
 })
- 
+function getAdmin(e){
+    console.log(e.target.id);
+    console.log(e.target.id);
+    localStorage.setItem('groupAdminPage',e.target.id);
+    location=`${url}/addAdmin.html`;
+}
