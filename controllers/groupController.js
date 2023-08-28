@@ -11,12 +11,8 @@ module.exports.postGroupController = async (req, res) => {
     list.add(tokenObj.id);
     const data = await Group.create({ groupname, createdBy: tokenObj.id });
     console.log(`8`);
-    await list.forEach(ele => UserGroup.create(
-        {
-            UserId: ele,
-            groupId: data.id,
-        }
-    ))
+    let arr = Array.from(list);
+    await data.addUsers(arr);
     res.json({ message: "post group controller", data });
 }
 module.exports.getGroupController = async (req, res) => {
@@ -39,6 +35,11 @@ module.exports.getGroupUserController=async (req,res)=>{
     console.log(req.params);
     const groupdata=await Group.findByPk(req.params.id);
     console.log(groupdata);
-    const userList=await groupdata.getUsers();
+    const userList=await groupdata.getUsers({
+        attributes:['name','id']
+    });
+    console.log(`45`);
     console.log(userList);
+    console.log(userList.name);
+    res.json({message:'get group admin route',userList})
 }
