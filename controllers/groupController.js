@@ -34,3 +34,11 @@ module.exports.getGroupController = async (req, res) => {
     })
     res.json({ message: "get group controller", groupList });
 }
+
+module.exports.getGroupUserController=async (req,res)=>{
+    console.log(req.params);
+    const groupdata=await Group.findByPk(req.params.id);
+    console.log(groupdata);
+    const userList=await groupdata.getUsers();
+    console.log(userList);
+}

@@ -108,7 +108,7 @@ async function getGroupList(e) {
                 console.log(groupId);
                 currentGroupId=Number(groupId[0]);
                 console.log(currentGroupId);
-                getMessageById(groupId[0],id,div[i].innerHTML);
+                getMessageById(groupId[0],1,div[i].innerHTML);
             });
         }
     }
