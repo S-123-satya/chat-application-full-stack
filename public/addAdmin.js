@@ -88,3 +88,9 @@ function okdel(e) {
 
 buttontdl.addEventListener('click', clickButton)
 listtdl.addEventListener('click', okdel)
+
+// `${url}/group/admin/removeuser?groupId=1&userId=2`
+// add karne pe user add ho jaye => add/user
+// delete karne par user delete ho jaye => remove/user
+// add karne par admin add ho jaye => add/admin
+// remove karne par admin remove ho jaye =>remove/admin
