@@ -3,17 +3,25 @@ const UserGroup = require("../models/userGroup");
 const User = require("../models/userModel");
 
 module.exports.postGroupController = async (req, res) => {
-    console.log(req.body);
-    const { groupname, userList, tokenObj } = req.body;
-    // userList.add(tokenObj.id);
-    const list = new Set();
-    userList.forEach(ele => list.add(ele));
-    list.add(tokenObj.id);
-    const data = await Group.create({ groupname, createdBy: tokenObj.id });
-    console.log(`8`);
-    let arr = Array.from(list);
-    await data.addUsers(arr);
-    res.json({ message: "post group controller", data });
+    try {
+        
+        console.log(req.body);
+        const { groupname, userList, tokenObj } = req.body;
+        // userList.add(tokenObj.id);
+        const list = new Set();
+        userList.forEach(ele => list.add(ele));
+        list.add(tokenObj.id);
+        const data = await Group.create({ groupname, createdBy: tokenObj.id });
+        console.log(`8`);
+        let arr = Array.from(list);
+        await data.addUsers(arr);
+        const addadmin=await data.addAdmin(arr);
+        console.log(`18`);
+        console.log(addadmin);
+        res.json({ message: "post group controller", data });
+    } catch (error) {
+        console.log(error.message);
+    }
 }
 module.exports.getGroupController = async (req, res) => {
     console.log(req.body);

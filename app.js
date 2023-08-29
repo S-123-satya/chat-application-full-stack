@@ -13,10 +13,9 @@ const Message = require('./models/messageModel');
 const User = require('./models/userModel');
 const Group = require('./models/groupModel');
 const UserGroup = require('./models/userGroup');
-const Admin = require('./models/adminModel');
 
-const cron=require('./cron')
-cron.cronjob;
+// const cron=require('./cron')
+// cron.cronjob;
 
 const app = express();
 app.use(cors());
@@ -32,8 +31,8 @@ app.use('/group', groupRoutes);
 User.belongsToMany(Group, { through: UserGroup });
 Group.belongsToMany(User, { through: UserGroup });
 
-Admin.belongsToMany(Group,{through:'GroupAdmin',timestamps:false})
-Group.belongsToMany(Admin,{through:'GroupAdmin',timestamps:false})
+User.belongsToMany(Group,{as:'Team',through:'GroupAdmin',timestamps:false})
+Group.belongsToMany(User,{as:'Admin',through:'GroupAdmin',timestamps:false})
 
 Group.hasMany(Message);
 Message.belongsTo(Group);
@@ -41,7 +40,7 @@ Message.belongsTo(Group);
 User.hasMany(Message, { foreignKey: 'senderId' });
 Message.belongsTo(User, { foreignKey: 'senderId' })
 
-sequelize.sync({ force: false })
+sequelize.sync({ force:false })
     .then(res => console.log(`database connected`))
     .catch(err => console.log(`error while database connection`));
 app.listen(3000, () => console.log(`listing on port 3000`));
