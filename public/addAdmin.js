@@ -7,36 +7,47 @@ const config = {
 const inputtdl = document.querySelector('.textarea')
 const buttontdl = document.querySelector('.buttoninput')
 const listtdl = document.querySelector('.todolist')
-window.addEventListener('DOMContentLoaded',async()=>{
+window.addEventListener('DOMContentLoaded', async () => {
     console.log(`hello add event`);
-    let groupid=localStorage.getItem('groupAdminPage');
+    let groupid = localStorage.getItem('groupAdminPage');
     console.log(groupid);
     let id = groupid.match(/(\d+)/);
     console.log(id[0]);
-    const data=await axios.get(`${url}/group/user/${id[0]}`,config);
+    const data = await axios.get(`${url}/group/user/${id[0]}`, config);
     console.log(data);
     console.log(`15`);
+const listtdl = document.querySelector('.todolist')
     console.log(data?.data?.userList);
-    await data?.data?.userList.map(async (ele)=>{
-        await addTodo(ele);
+    await data?.data?.userList.map(async (ele) => {
+        await addTodo(ele,listtdl);
     })
 })
 
 
-function clickButton(e) {
+async function clickButton(e) {
     e.preventDefault()
     // addTodo()
+    const searchName = document.querySelector('.textarea')
+
+    // const searchName = document.getElementById('searchName');
+    const data = await axios.get(`${url}/user?name=${searchName.value}`)
+    const listOfUsers = document.getElementById('listOfUsers');
+    listOfUsers.innerHTML = "";
+    console.log(data);
+    data?.data?.data.map(ele => {
+        addTodo(ele,listOfUsers);
+    })
 }
 
 // adding todoList
-function addTodo({name,id}) {
+function addTodo({ name, id },listtdl) {
     console.log(name);
     const itemall = document.createElement('div')
     itemall.classList.add('itemall')
 
     const item = document.createElement('p')
     item.classList.add('item')
-    item.id=id;
+    item.id = id;
     item.innerText = name;
     console.log(item);
     itemall.appendChild(item)

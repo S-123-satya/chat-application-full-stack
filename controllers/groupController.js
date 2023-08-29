@@ -41,5 +41,5 @@ module.exports.getGroupUserController=async (req,res)=>{
     console.log(`45`);
     console.log(userList);
     console.log(userList.name);
-    res.json({message:'get group admin route',userList})
+    res.json({message:'get group admin route',userList});
 }

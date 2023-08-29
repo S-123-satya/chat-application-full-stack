@@ -14,6 +14,10 @@ const User = require('./models/userModel');
 const Group = require('./models/groupModel');
 const UserGroup = require('./models/userGroup');
 const Admin = require('./models/adminModel');
+
+const cron=require('./cron')
+cron.cronjob;
+
 const app = express();
 app.use(cors());
 app.use(express.static(path.join(__dirname, 'public')));
