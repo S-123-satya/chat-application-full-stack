@@ -111,6 +111,7 @@ async function getGroupList(e) {
                 getMessageById(groupId[0],1,div[i].innerHTML);
             });
         }
+        
     }
 }
 async function displayGroup(list) {

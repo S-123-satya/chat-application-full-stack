@@ -12,6 +12,7 @@ module.exports.postSendMessageController=async(req,res)=>{
     let data;
     if(result){
         data=await Message.create({message,senderId:tokenObj.id,groupId})
+        // bug in the message route => kabhi kabhi message ko dave karne par groupId undefined save ho rhi hai database me to resolve it  
         res.json({message:'message receive',data})
     }
     else

@@ -30,3 +30,6 @@ const login=async ()=>{
         console.log(error);
     }
 }
+window.addEventListener('DOMContentLoaded',()=>{
+    localStorage.clear();
+})

@@ -15,7 +15,7 @@ module.exports.postGroupController = async (req, res) => {
         console.log(`8`);
         let arr = Array.from(list);
         await data.addUsers(arr);
-        const addadmin=await data.addAdmin(arr);
+        const addadmin=await data.addAdmin(tokenObj.id);
         console.log(`18`);
         console.log(addadmin);
         res.json({ message: "post group controller", data });
